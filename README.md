@@ -10,6 +10,11 @@ ___
 ✔ Docker Instalado!
 
 ___
+# Aula 01
+___
+
+
+___
 ## Primeiros Comandos
 
 * Listar os comandos disponíveis
@@ -111,11 +116,79 @@ docker container run -p 8080:80 nginx
 
 * Verificar se a porta 8080 está respondendo.
 
+### Mapeando Volumes
+
+*** Atenção: Se você estiver utilizando o Katacoda, pode não funcionar.
+
+[Documentação sobre Volumes](https://docs.docker.com/storage/volumes/)
+
+É possível mapear tanto diretórios no host como entidades especiais conhecidas como volumes para diretórios no container. Por enquanto vamos nos concentrar no mapeamento mais simples, uma diretório no host para um diretório no container. O método mais comum para este fim é o parâmetro -v no comando docker container run, o -v recebe um parâmetro que normalmente é composto por dois caminhos absolutos separados por : (dois pontos). Assim como diversos outros parâmetros, o primeiro é no host e o segundo é no container. (GOMES, 2020)
+
+1. Subir o container e testar o acesso
+
+```
+docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+```
+
+2. Criar o diretório html e criar o arquivo (caso não exista) html/index.html conforme exemplo:
+```
+<h1> Hello World </h1>
+```
+
+3. Subir novamente o container e testar o acesso
+```
+docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+```
+
+4. Editar o arquivo html com o container rodando e verifica se as alterações foram aplicadas em tempo real.
 
 
+### Executando containers em Background (modo daemon)
+
+O parâmetro -d do docker container run indica ao Docker para iniciar o container em background (modo daemon).
+
+* Subindo um container em background
+```
+docker container run -d --name ex-deamon -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+```
+
+* Listar os containers
+
+* Outras ações com container em Background
+
+```
+# reinicar um container
+docker container restart <nome ou id>
+
+# Parar um container
+docker container stop <nome ou id>
+
+# Iniciar um container
+docker container stop <nome ou id>
+```
+
+
+### Outros Comandos
+```
+docker container ls
+docker container ls -a
+docker container inspect
+docker container exec
+docker container logs
+```
+
+[Documentação sobre Comandos](https://docs.docker.com/engine/reference/commandline/docker/)
+
+
+___
+# Aula 02
+___
 
 Prof. Patrick J. Cardoso 
 
+___
+### Referências: 
+GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
 
 
 
