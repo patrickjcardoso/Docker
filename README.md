@@ -14,7 +14,8 @@ ___
 ___
 
 
-___
+
+
 ## Primeiros Comandos
 
 * Listar os comandos disponíveis
@@ -179,10 +180,72 @@ docker container logs
 
 [Documentação sobre Comandos](https://docs.docker.com/engine/reference/commandline/docker/)
 
+___
+### Referências: 
+GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
 
 ___
 # Aula 02
 ___
+
+
+### Exemplo 01 - Wordpress e Mysql com Docker Compose
+
+### Ambiente
+
+* Crie uma nova pasta e:
+```
+mkdir exemplo01 && cd exemplo01
+```
+* Crie uma pasta chamada wordpress
+* Crie outra pasta chamada db
+* Crie um arquivo chamado docker-compose.yml
+** Cole neste arquivo o conteúdo da próxima seção
+```
+version: '3.1'
+ 
+services:
+ 
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - ./wordpress:/var/www/html
+ 
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - ./db:/var/lib/mysql
+```
+
+[Leitura Recomendada sobre docker-compose](https://blog.4linux.com.br/docker-compose-explicado/)
+
+* Execute docker-compose up
+* Acesse localhost:8080
+
+* Abra um novo terminal e verifique os conteineres em execução.
+* Verifique também se existem volumes no docker.
+* Verifique também se existem redes no docker.
+
+Para encerrar, volte para o terminal e aperte CTRL+C
+
+
+
+
+
 
 Prof. Patrick J. Cardoso 
 
