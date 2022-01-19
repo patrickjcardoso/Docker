@@ -117,6 +117,32 @@ docker container run -p 8080:80 nginx
 
 * Verificar se a porta 8080 está respondendo.
 
+#### Exemplo MySQL
+
+https://hub.docker.com/_/mysql
+
+```
+docker pull mysql
+```
+
+```
+docker container run mysql
+```
+
+* Ao executar o comando run, funcionou?
+
+```
+docker container run -e MYSQL_ROOT_PASSWORD=root mysql
+```
+
+Criando container MySQL com paramêtros e expondo a porta
+```
+docker container run -e MYSQL_ROOT_PASSWORD=root --name=mysql_server -d -p 3306:3306 mysql
+```
+
+* Você pode acessar o Server do MySQL através de um client.
+
+
 ### Mapeando Volumes
 
 *** Atenção: Se você estiver utilizando o Katacoda, pode não funcionar.
@@ -128,7 +154,7 @@ docker container run -p 8080:80 nginx
 1. Subir o container e testar o acesso
 
 ```
-docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html -d nginx
 ```
 
 2. Criar o diretório html e criar o arquivo (caso não exista) html/index.html conforme exemplo:
@@ -136,10 +162,7 @@ docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
 <h1> Hello World </h1>
 ```
 
-3. Subir novamente o container e testar o acesso
-```
-docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
-```
+3. Acessar o host e verificar as mensagem de saida!
 
 4. Editar o arquivo html com o container rodando e verifica se as alterações foram aplicadas em tempo real.
 
@@ -173,8 +196,20 @@ docker container stop <nome ou id>
 ```
 docker container ls
 docker container ls -a
+```
+
+#### Inspecionar container https://docs.docker.com/engine/reference/commandline/inspect/
+```
 docker container inspect
+```
+
+#### Executar um comando em um container em execução https://docs.docker.com/engine/reference/commandline/exec/
+```
 docker container exec
+```
+
+#### Exibir logs de um container https://docs.docker.com/engine/reference/commandline/logs/
+```
 docker container logs
 ```
 
@@ -183,11 +218,81 @@ docker container logs
 ___
 ### Referências: 
 GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
-
+ls
 ___
 # Aula 02
 ___
 
+###Dockerfile 
+
+[Extra Sobre Dockerfile](https://caiodelgado.dev/entendendo-dockerfile/)
+
+## DockerFile Exemplo 01 - Criando sua primeira imagem!
+1. Cria um diretório e dentre dele crie seu arquivo Dockerfile com o conteúdo abaixo:
+
+```
+FROM alpine:3.4
+
+RUN apk update
+RUN apk add vim
+RUN apk add curl
+```
+
+2. Buildando a imagem
+
+```
+docker build -t patrickjcardoso/alpine-leve:1.0 .
+```
+
+3. Criando um container da imagem
+
+```
+docker run --rm -ti patrickjcardoso/alpine-leve:1.0 /bin/sh
+```
+
+### Buffer de imagem
+
+* Susbstitua a linha que contém o curl por git
+```
+FROM alpine:3.4
+
+RUN apk update
+RUN apk add vim
+RUN apk add curl
+```
+
+* Buld novamenta a imagem e observe as saídas!
+
+### Simplificando o Dockerfiel
+
+```
+FROM alpine:3.4
+
+RUN apk update && \
+    apk add curl && \
+    apk add vim && \
+    apk add git
+```
+
+OU
+
+```
+FROM alpine:3.4
+
+RUN apk update && apk add \
+    curl \
+    git \
+    vim
+```
+## Dockerfile Exemplo 02 - Exemplo Site Docker
+
+https://docs.docker.com/get-started/02_our_app/
+
+
+
+
+
+## Docker Compose
 
 ### Exemplo 01 - Wordpress e Mysql com Docker Compose
 
