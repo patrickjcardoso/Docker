@@ -228,6 +228,9 @@ ___
 [Extra Sobre Dockerfile](https://caiodelgado.dev/entendendo-dockerfile/)
 
 ## DockerFile Exemplo 01 - Criando sua primeira imagem!
+
+Fonte: https://takacsmark.com/dockerfile-tutorial-by-example-dockerfile-best-practices-2018/
+
 1. Cria um diretório e dentre dele crie seu arquivo Dockerfile com o conteúdo abaixo:
 
 ```
