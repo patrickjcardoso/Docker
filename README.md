@@ -9,6 +9,13 @@ ___
 
 ✔ Docker Instalado!
 
+### Instalando o Docker script
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+# Utilizando docker sem sudo
+sudo usermod -aG docker $USER
+```
 ___
 # Aula 01
 ___
@@ -219,9 +226,13 @@ ___
 ### Referências: 
 GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
 ls
+
 ___
 # Aula 02
 ___
+
+
+
 
 ###Dockerfile 
 
