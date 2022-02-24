@@ -231,9 +231,6 @@ ___
 # Aula 02
 ___
 
-
-
-
 ###Dockerfile 
 
 [Extra Sobre Dockerfile](https://caiodelgado.dev/entendendo-dockerfile/)
@@ -272,7 +269,7 @@ FROM alpine:3.4
 
 RUN apk update
 RUN apk add vim
-RUN apk add curl
+RUN apk add git
 ```
 
 * Buld novamenta a imagem e observe as saídas!
@@ -299,6 +296,43 @@ RUN apk update && apk add \
     vim
 ```
 ## Dockerfile Exemplo 02 - Exemplo Site Docker
+
+Nesta atividade vamos implantar uma aplicação simples, para isso, vamos utilizar um tutorial que pode ser acessado pelo container abaixo.
+
+    docker run -dp 80:80 docker/getting-started
+
+
+##Dockerfile Exemplo 03 - Site 
+
+Fonte: [Blog Matheus Castiglioni](https://blog.matheuscastiglioni.com.br/criando-minha-primeira-imagem-com-docker/)
+
+
+Dockerfile
+```
+FROM nginx
+LABEL version="1.0.0" description="Disponibilizando site com NGINX" maintainer="Seu Nome<seuemail@gmail.com>"
+RUN cd / && mkdir Arquivos && chmod 777 -R Arquivos/
+COPY ./site/index.html /usr/share/nginx/html/
+VOLUME /Arquivos/
+EXPOSE 80
+ENV API_URL=http://localhost:8000/api/
+ENV API_BANCO=meu_site
+WORKDIR /usr/share/nginx/html/
+ENTRYPOINT ["/usr/sbin/nginx"]
+CMD ["-g", "daemon off;"]
+```
+
+index.html
+```
+<html>
+<body>
+	<h1>Meu site com Docker</h1>
+</body>
+</html>
+```
+
+
+## Dockerfile Exemplo 04 - Exemplo Site Docker
 
 https://docs.docker.com/get-started/02_our_app/
 
