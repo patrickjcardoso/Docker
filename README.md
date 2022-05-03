@@ -4,12 +4,25 @@
 
 Vamos conhecer alguns comandos e suas aplicações.
 
+[Site oficial Docker](https://www.docker.com/)
 ___
 ## Pré-requisitos
 
 ✔ Docker Instalado!
 
-### Instalando o Docker script
+
+## Livros sobre Docker
+
+[Livro Descomplicando Docker - Jefferson Linuxtip](https://github.com/badtuxx/DescomplicandoDocker)
+
+[Apostila Curso de Docker - Cod3r.com.br](http://files.cod3r.com.br/apostila-docker.pdf)
+
+
+### Instalando o Docker 
+
+[Documentação Oficial](https://docs.docker.com/get-docker/)
+
+* Script
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
@@ -55,6 +68,8 @@ docker image ls
 ```
 docker container ls -a
 ```
+Com esse comando, conseguimos ver algumas informações sobre os containers, como id, nome, a imagem baseada, comando inicial, etc.
+
 ___
 ## Trabalhando com Containers
 
@@ -70,7 +85,7 @@ docker container run hello-world
 
 * Executar um container Linux
 ```
-docker container run ubuntu
+docker container run debian
 ```
 1. O que aconteceu com esse container? Por que ele é executado e destruido?
 
@@ -79,26 +94,52 @@ docker container run ubuntu
 docker container run --help
 ```
 
+O comando run aceita a informação de qual versão de uma determinada imagem gostaríamos de utilizar. Para isso, basta informarmos através de uma tag.
+
+```
+docker container run debian:buster
+
+docker run ubuntu:18.04 cat /etc/issue
+```
+
 ### Executando container em modo interativo
 
-```
-docker container run -it debian bash
-touch /curso-docker.txt
-exit
-```
+O parâmetro -it do docker container run indica ao Docker para iniciar o container em iterativo.
 
-* Execute o comando docker run anterior e verifique se o arquivo criado existe?
+```
+docker container run -it debian
+```
+### Executando containers em Background (modo daemon)
+
+O parâmetro -d do docker container run indica ao Docker para iniciar o container em background (modo daemon).
+
 
 ### Definindo o nome para seus containers
 
 O nome dos contêineres devem ser únicos, como percebido, o docker cria automáticamento o nome para você. Você pode definir o nome que achar melhor, desde que siga a regra de nomes únicos.
 
 ```
-docker container run --name meudebian -it debian bash
-exit
-docker container run --name meudebian -it debian bash
+docker container run --name meudebian -d debian
 ```
-* Ao executar o segundo docker run, o que aconteceu?
+
+* Funcionou corretanmente?
+
+```
+docker container run --name meudebian2 -d sleep 20
+```
+* Não é possível ter dois container com o mesmo nome, para isso é necessário excluir o contaneir.
+
+### Exercício 01
+
+1. Crei um container Alpine no modo iterativo
+
+2. Crie uma arquivo de texto dentro do container com o comando touch
+
+3. Saia do container
+
+4. Utilize o comando run novamente para criar o container Alpine
+
+5. Busque pelo arquivo criado anteriormente com o comando ls
 
 
 ### Reutilizando Containers
@@ -106,6 +147,13 @@ docker container run --name meudebian -it debian bash
 ```
 docker container ls
 docker container ls -a
+
+```
+Para iniciar um container novamente, basta utilizar o comando <em>start</em>, com as flags
+-a (attach)
+-i (Interactive) 
+
+```
 docker container start -ai meudebian
 touch docker.txt
 exit
@@ -113,6 +161,21 @@ docker container start -ai meudebian
 ls docker.txt
 exit
 ```
+
+### Exercício 02
+
+1. Crie um contanier do CentOS ou outra distribuição linux.
+
+2. Verifique as imagens que você tem baixadas.
+
+3. Executo e comando sleep e suspenda o SO por 2000 segundos 
+
+4. Verifique os containers em execução. 
+
+5. Finalize todos os containers em execução.
+
+
+
 
 ### Mapeamento de Portas
 
@@ -224,7 +287,7 @@ docker container logs
 
 ___
 ### Referências: 
-GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
+GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
 ls
 
 ___
@@ -404,8 +467,7 @@ Prof. Patrick J. Cardoso
 
 ___
 ### Referências: 
-GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
-
+GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
 
 
 
