@@ -33,9 +33,6 @@ ___
 # Aula 01
 ___
 
-
-
-
 ## Primeiros Comandos
 
 * Listar os comandos disponíveis
@@ -144,11 +141,6 @@ docker container run --name meudebian2 -d sleep 20
 
 ### Reutilizando Containers
 
-```
-docker container ls
-docker container ls -a
-
-```
 Para iniciar um container novamente, basta utilizar o comando <em>start</em>, com as flags
 -a (attach)
 -i (Interactive) 
@@ -161,6 +153,8 @@ docker container start -ai meudebian
 ls docker.txt
 exit
 ```
+
+* Funcionou corretamente? 
 
 ### Exercício 02
 
@@ -175,9 +169,81 @@ exit
 5. Finalize todos os containers em execução.
 
 
+# Docker Hub
+
+É um "Registry" usado para hospedar e baixar diversas imagens. Pode ser visto como uma plataforma SaaS de compartilhamento e gerenciamento de imagens.
+
+* **Acesse e faça seu cadastro.**
+
+https://hub.docker.com/
 
 
-### Mapeamento de Portas
+* Docker Hub é um public registry padrão do Docker é biblioteca pública de armazenamento de imagens.
+
+* *Private registries:*  Docker Trusted Registry, harbir, GitLab Container Registry
+* *Public registries:* Google Container Registry (CGR), Amazon Elastic Container Registry (ECR), Azure Container Registry (ACR).
+
+
+# Imagem de Container
+
+![image](https://user-images.githubusercontent.com/66180145/166843848-695fba23-3056-4d7a-b4ed-2900f1754860.png)
+Fonte: [Caio Delgado](https://github.com/caiodelgadonew/docker/blob/main/manuscript/resources/02imagem.png)
+
+* Listar as camadas de uma imagem
+
+```
+docker image history debian
+```
+
+* Inspecionar uma imagem
+
+```
+docker image inspect debian
+```
+
+### Outros Comandos
+
+* Listar os containers
+
+* Outras ações com container em Background
+
+```
+# reinicar um container
+docker container restart <nome ou id>
+
+# Parar um container
+docker container stop <nome ou id>
+
+# Iniciar um container
+docker container start <nome ou id>
+```
+
+#### Inspecionar container
+ https://docs.docker.com/engine/reference/commandline/inspect/
+```
+docker container inspect
+```
+
+#### Executar um comando em um container em execução
+https://docs.docker.com/engine/reference/commandline/exec/
+```
+docker container exec
+```
+
+#### Exibir logs de um container 
+https://docs.docker.com/engine/reference/commandline/logs/
+```
+docker container logs
+```
+
+[Documentação sobre Comandos](https://docs.docker.com/engine/reference/commandline/docker/)
+
+___
+### Referências: 
+GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
+ls
+
+# Mapeamento de Portas
 
 É possível mapear portas, permitindo o acesso através de toda a rede. O parâmetro -p recebe as duas portas como por exemplo: -p 8080:80 onde o primeiro é do host e o segundo é do container.
 
@@ -187,7 +253,7 @@ docker container run -p 8080:80 nginx
 
 * Verificar se a porta 8080 está respondendo.
 
-#### Exemplo MySQL
+### Exemplo MySQL
 
 https://hub.docker.com/_/mysql
 
@@ -212,8 +278,12 @@ docker container run -e MYSQL_ROOT_PASSWORD=root --name=mysql_server -d -p 3306:
 
 * Você pode acessar o Server do MySQL através de um client.
 
+O exemplo anterior é uma maneira simples de trabalhar com network, exitem outras maneiras de se trabalhar com network no docker, recomendo a leitura:
 
-### Mapeando Volumes
+[Caio Delgado - Network](https://github.com/caiodelgadonew/docker/blob/main/manuscript/04-network.md)
+
+
+# Mapeando Volumes
 
 *** Atenção: Se você estiver utilizando o Katacoda, pode não funcionar.
 
@@ -237,66 +307,21 @@ docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html -d nginx
 4. Editar o arquivo html com o container rodando e verifica se as alterações foram aplicadas em tempo real.
 
 
-### Executando containers em Background (modo daemon)
-
-O parâmetro -d do docker container run indica ao Docker para iniciar o container em background (modo daemon).
-
 * Subindo um container em background
 ```
 docker container run -d --name ex-deamon -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
 ```
 
-* Listar os containers
+O exemplo anterior é uma maneira simples de trabalhar com volumes, exitem outras maneiras de se trabalhar com volumes no docker, recomendo a leitura:
 
-* Outras ações com container em Background
-
-```
-# reinicar um container
-docker container restart <nome ou id>
-
-# Parar um container
-docker container stop <nome ou id>
-
-# Iniciar um container
-docker container stop <nome ou id>
-```
+[Caio Delgado - Volumes](https://github.com/caiodelgadonew/docker/blob/main/manuscript/03-volumes.md)
 
 
-### Outros Comandos
-```
-docker container ls
-docker container ls -a
-```
+# Dockerfile 
 
-#### Inspecionar container https://docs.docker.com/engine/reference/commandline/inspect/
-```
-docker container inspect
-```
-
-#### Executar um comando em um container em execução https://docs.docker.com/engine/reference/commandline/exec/
-```
-docker container exec
-```
-
-#### Exibir logs de um container https://docs.docker.com/engine/reference/commandline/logs/
-```
-docker container logs
-```
-
-[Documentação sobre Comandos](https://docs.docker.com/engine/reference/commandline/docker/)
-
-___
-### Referências: 
-GOMES, Rafael. Docker para desenvolvedores. Leanpub: Instruct 9Bravos, 2020. Disponível em: https://leanpub.com/dockerparadesenvolvedores. Acesso em: 01 out. 2021.
-ls
-
-___
-# Aula 02
-___
-
-###Dockerfile 
-
-[Extra Sobre Dockerfile](https://caiodelgado.dev/entendendo-dockerfile/)
+## Leitura recomendada
+* [Entendendo Dockerfile](https://caiodelgado.dev/entendendo-dockerfile/)
+* [Caio Delgado - Dockerfile](https://github.com/caiodelgadonew/docker/blob/main/manuscript/02-imagens.md#dockerfile)
 
 ## DockerFile Exemplo 01 - Criando sua primeira imagem!
 
@@ -364,8 +389,7 @@ Nesta atividade vamos implantar uma aplicação simples, para isso, vamos utiliz
 
     docker run -dp 80:80 docker/getting-started
 
-
-##Dockerfile Exemplo 03 - Site 
+## Dockerfile Exemplo 03 - Site 
 
 Fonte: [Blog Matheus Castiglioni](https://blog.matheuscastiglioni.com.br/criando-minha-primeira-imagem-com-docker/)
 
@@ -394,16 +418,20 @@ index.html
 </html>
 ```
 
-
 ## Dockerfile Exemplo 04 - Exemplo Site Docker
 
 https://docs.docker.com/get-started/02_our_app/
 
 
+# Desafio 
+
+Agora chegou sua hora de por em prático os conhecimentos adquiridos até aqui!
+
+[Desafio](https://docs.docker.com/language/#language-specific-getting-started-guides)
 
 
 
-## Docker Compose
+# Docker Compose
 
 ### Exemplo 01 - Wordpress e Mysql com Docker Compose
 
