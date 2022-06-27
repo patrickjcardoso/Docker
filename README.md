@@ -17,8 +17,11 @@ ___
 
 [Apostila Curso de Docker - Cod3r.com.br](http://files.cod3r.com.br/apostila-docker.pdf)
 
+[Docker DCA Curse - Caio Delgado](https://github.com/caiodelgadonew/docker)
 
 ### Instalando o Docker 
+
+A instalação do docker pode ser feita de várias maneiras, dependendo do seu SO. Para instalação no Ubuntu, você pode utilizar o script abaixo ou consultar a documentação oficial.
 
 [Documentação Oficial](https://docs.docker.com/get-docker/)
 
