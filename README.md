@@ -68,6 +68,15 @@ docker image ls
 ```
 docker container ls -a
 ```
+
+Principais comandos:
+
+* `docker container`
+* `docker image`
+* `docker network`
+* `docker system`
+* `docker volume`
+
 Com esse comando, conseguimos ver algumas informações sobre os containers, como id, nome, a imagem baseada, comando inicial, etc.
 
 ___
@@ -84,10 +93,18 @@ docker container run hello-world
 3. Listar os containers que forma criados e suas informações.
 
 * Executar um container Linux
-```
-docker container run debian
+```bash
+docker container run -it debian bash
 ```
 1. O que aconteceu com esse container? Por que ele é executado e destruido?
+
+Utilize a sequencia de teclas **_\<CTRL\> + \<P\> + \<Q\>_** para se desconectar do container sem que ele seja parado. Este comando é chamado de _Read escape sequence_.
+```bash
+<CTRL> + <P> + <Q>
+docker container ls
+```
+_Note que agora o container ainda está em execução._
+
 
 ### Conhecendo as opções do run 
 ```
